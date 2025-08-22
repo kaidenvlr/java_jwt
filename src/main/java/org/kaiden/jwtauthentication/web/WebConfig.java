@@ -1,5 +1,6 @@
 package org.kaiden.jwtauthentication.web;
 
+import org.kaiden.jwtauthentication.web.interceptors.JwtInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -14,7 +15,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(jwtInterceptor)
+        registry
+                .addInterceptor(jwtInterceptor)
                 .addPathPatterns("/**");
     }
 }

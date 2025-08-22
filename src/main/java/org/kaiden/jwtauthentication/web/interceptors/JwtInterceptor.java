@@ -1,4 +1,4 @@
-package org.kaiden.jwtauthentication.web;
+package org.kaiden.jwtauthentication.web.interceptors;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
