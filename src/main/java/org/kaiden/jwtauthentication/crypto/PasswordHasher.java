@@ -3,7 +3,6 @@ package org.kaiden.jwtauthentication.crypto;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.SecureRandom;
-import java.util.Arrays;
 import java.util.Base64;
 
 public class PasswordHasher {

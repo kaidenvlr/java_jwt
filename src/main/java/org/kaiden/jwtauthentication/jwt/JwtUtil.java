@@ -12,19 +12,19 @@ public class JwtUtil {
 
     // Utilities for JWT validation and generation
     // Simple Parsers
-    private static Long extractLong(String json, String key) {
-        int i = json.indexOf(key);
+    private static Long extractExpire(String json) {
+        int i = json.indexOf("\"exp\":");
         if (i < 0) return null;
-        i += key.length();
+        i += "\"exp\":".length();
         int j = i;
         while (j < json.length() && Character.isDigit(json.charAt(j))) j++;
         return Long.parseLong(json.substring(i, j));
     }
 
-    private static String extractString(String json, String keyPrefix) {
-        int i = json.indexOf(keyPrefix);
+    private static String extractSubject(String json) {
+        int i = json.indexOf("\"sub\":\"");
         if (i < 0) return null;
-        i += keyPrefix.length();
+        i += "\"sub\":\"".length();
         int j = json.indexOf('"', i);
         return json.substring(i, j);
     }
@@ -94,8 +94,8 @@ public class JwtUtil {
 
         String json = new String(Base64.getUrlDecoder().decode(body), StandardCharsets.UTF_8);
         long now = Instant.now().getEpochSecond();
-        Long exp = extractLong(json, "\"exp\":");
+        Long exp = extractExpire(json);
         if (exp == null || now >= exp) throw new IllegalArgumentException("Token expired");
-        return extractString(json, "\"sub\":\"");
+        return extractSubject(json);
     }
 }
